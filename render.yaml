@@ -7,11 +7,10 @@ databases:
 services:
   - type: web
     name: mochimono-backend
-    runtime: java
+    runtime: docker
     plan: free
     rootDir: backend
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/mochimono-0.0.1-SNAPSHOT.jar
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: DB_HOST
         fromDatabase:
