@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:8080';
+// 本番ビルド時は VITE_API_BASE_URL でバックエンドの実URLを指定する。
+// 未指定時はローカル開発用に「今アクセスしているホスト名の8080番」を使う(LAN内のスマホ実機からのアクセスにも対応)
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || `http://${window.location.hostname}:8080`;
 const TOKEN_KEY = 'token';
 
 export function getToken() {

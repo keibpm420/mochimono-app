@@ -11,9 +11,15 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findByItemSetIdOrderBySortOrderAsc(Long itemSetId);
 
+    List<Item> findByParentItemId(Long parentItemId);
+
+    int countByItemSetIdAndParentItemId(Long itemSetId, Long parentItemId);
+
     @Modifying
     @Query("update Item i set i.checked = false where i.itemSetId = :itemSetId")
     void resetCheckedByItemSetId(@Param("itemSetId") Long itemSetId);
 
     void deleteByItemSetId(Long itemSetId);
+
+    void deleteByParentItemId(Long parentItemId);
 }

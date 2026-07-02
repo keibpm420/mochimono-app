@@ -30,9 +30,9 @@ export function resetSet(id) {
   return apiFetch(`/api/sets/${id}/reset`, { method: 'POST' });
 }
 
-export function addItem(setId, name) {
+export function addItem(setId, name, parentItemId) {
   return apiFetch(`/api/sets/${setId}/items`, {
     method: 'POST',
-    body: JSON.stringify({ name }),
+    body: JSON.stringify({ name, parentItemId }),
   });
 }

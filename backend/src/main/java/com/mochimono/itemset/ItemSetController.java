@@ -1,5 +1,6 @@
 package com.mochimono.itemset;
 
+import com.mochimono.item.Item;
 import com.mochimono.item.ItemService;
 import com.mochimono.item.dto.ItemRequest;
 import com.mochimono.item.dto.ItemResponse;
@@ -40,9 +41,7 @@ public class ItemSetController {
     @GetMapping("/{id}")
     public ItemSetDetailResponse detail(@AuthenticationPrincipal Long userId, @PathVariable Long id) {
         ItemSet itemSet = itemSetService.getOwned(userId, id);
-        List<ItemResponse> items = itemService.listBySet(itemSet.getId()).stream()
-                .map(ItemResponse::from)
-                .toList();
+        List<ItemResponse> items = itemService.listTreeBySet(itemSet.getId());
         return new ItemSetDetailResponse(
                 itemSet.getId(), itemSet.getName(), itemSet.getCreatedAt(), itemSet.getUpdatedAt(), items
         );
@@ -71,6 +70,7 @@ public class ItemSetController {
     public ItemResponse addItem(
             @AuthenticationPrincipal Long userId, @PathVariable Long id, @Valid @RequestBody ItemRequest request
     ) {
-        return ItemResponse.from(itemService.addItem(userId, id, request.name()));
+        Item item = itemService.addItem(userId, id, request.name(), request.parentItemId());
+        return ItemResponse.from(item, List.of());
     }
 }

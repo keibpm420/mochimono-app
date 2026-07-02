@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { listSets, createSet } from '@/api/sets';
 import { clearToken } from '@/api/client';
+import { ListChecks, LogOut, Pencil, Plus } from 'lucide-react';
 
 export default function SetListPage() {
   const [sets, setSets] = useState([]);
@@ -50,6 +51,7 @@ export default function SetListPage() {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">持ち物セット一覧</h1>
         <Button variant="ghost" onClick={handleLogout}>
+          <LogOut data-icon="inline-start" />
           ログアウト
         </Button>
       </div>
@@ -60,7 +62,10 @@ export default function SetListPage() {
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
         />
-        <Button type="submit">作成</Button>
+        <Button type="submit">
+          <Plus data-icon="inline-start" />
+          作成
+        </Button>
       </form>
 
       {error && <p className="mb-4 text-sm text-destructive">{error}</p>}
@@ -79,9 +84,9 @@ export default function SetListPage() {
                     {set.name}
                   </Link>
                 </CardTitle>
-                <Link to={`/sets/${set.id}/edit`} className="text-sm text-muted-foreground hover:underline">
+                <Button variant="outline" size="sm" render={<Link to={`/sets/${set.id}/edit`} />}>
                   編集
-                </Link>
+                </Button>
               </CardHeader>
               <CardContent>
                 <Link to={`/sets/${set.id}`}>

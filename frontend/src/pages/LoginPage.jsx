@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { login, signup } from '@/api/auth';
+import { Backpack, LogIn, UserPlus } from 'lucide-react';
 
 export default function LoginPage() {
   const [mode, setMode] = useState('login');
@@ -36,7 +37,10 @@ export default function LoginPage() {
     <div className="flex min-h-svh items-center justify-center bg-background px-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>{mode === 'login' ? 'ログイン' : '新規登録'}</CardTitle>
+          <div className="mx-auto mb-2 flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <Backpack className="size-6" />
+          </div>
+          <CardTitle className="text-center">{mode === 'login' ? 'ログイン' : '新規登録'}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -63,16 +67,23 @@ export default function LoginPage() {
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
             <Button type="submit" disabled={loading}>
+              {!loading &&
+                (mode === 'login' ? (
+                  <LogIn data-icon="inline-start" />
+                ) : (
+                  <UserPlus data-icon="inline-start" />
+                ))}
               {loading ? '処理中...' : mode === 'login' ? 'ログイン' : '登録する'}
             </Button>
           </form>
-          <button
+          <Button
             type="button"
-            className="mt-4 w-full text-sm text-muted-foreground underline"
+            variant="link"
+            className="mt-2 w-full text-muted-foreground"
             onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
           >
             {mode === 'login' ? 'アカウントを作成する' : 'ログインはこちら'}
-          </button>
+          </Button>
         </CardContent>
       </Card>
     </div>

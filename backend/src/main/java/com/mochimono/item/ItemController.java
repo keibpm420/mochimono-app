@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/items")
 public class ItemController {
@@ -20,7 +22,7 @@ public class ItemController {
     public ItemResponse update(
             @AuthenticationPrincipal Long userId, @PathVariable Long id, @RequestBody ItemUpdateRequest request
     ) {
-        return ItemResponse.from(itemService.update(userId, id, request.name(), request.checked()));
+        return ItemResponse.from(itemService.update(userId, id, request.name(), request.checked()), List.of());
     }
 
     @DeleteMapping("/{id}")

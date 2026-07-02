@@ -14,6 +14,10 @@ public class Item {
     @Column(name = "item_set_id", nullable = false)
     private Long itemSetId;
 
+    /** 親アイテムのID。トップレベルのアイテムは null(入れ子は最大1階層まで) */
+    @Column(name = "parent_item_id")
+    private Long parentItemId;
+
     @Column(nullable = false)
     private String name;
 
@@ -41,6 +45,14 @@ public class Item {
 
     public void setItemSetId(Long itemSetId) {
         this.itemSetId = itemSetId;
+    }
+
+    public Long getParentItemId() {
+        return parentItemId;
+    }
+
+    public void setParentItemId(Long parentItemId) {
+        this.parentItemId = parentItemId;
     }
 
     public String getName() {
