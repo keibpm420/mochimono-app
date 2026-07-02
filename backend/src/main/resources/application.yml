@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: mochimono
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mochimono
+    username: mochimono
+    password: mochimono
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+app:
+  jwt:
+    secret: change-this-to-a-long-random-secret-in-real-deployment-1234567890
+    expiration-days: 30

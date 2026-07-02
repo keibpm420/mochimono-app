@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    container_name: mochimono-db
+    environment:
+      POSTGRES_DB: mochimono
+      POSTGRES_USER: mochimono
+      POSTGRES_PASSWORD: mochimono
+    ports:
+      - "5432:5432"
+    volumes:
+      - mochimono-db-data:/var/lib/postgresql/data
+
+volumes:
+  mochimono-db-data:
